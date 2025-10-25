@@ -110,19 +110,26 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 glow-hover font-medium px-8 py-6 text-lg"
-            >
-              View My Work
-            </Button>
-            <Button
+            {/* <Button
               variant="outline"
               size="lg"
-              className="border-border text-foreground hover:bg-card font-medium px-8 py-6 text-lg"
+              className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
             >
-              Download CV
-            </Button>
+              View My Work
+            </Button> */}
+
+            <a
+              href={`${import.meta.env.BASE_URL}resume.pdf`}
+              download="Bharath_Kammala_Resume.pdf"
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
+              >
+                Download CV
+              </Button>
+            </a>
           </div>
 
           {/* Social Links */}

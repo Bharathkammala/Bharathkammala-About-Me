@@ -97,9 +97,7 @@ const Footer = () => {
             <p className="text-muted-foreground text-sm">
               © {currentYear} Bharath Kammala. All rights reserved.
             </p>
-            <p className="text-muted-foreground text-sm flex items-center mt-4 md:mt-0">
-              Made with <Heart size={16} className="mx-1 text-red-500" /> using React & Tailwind CSS
-            </p>
+           
           </div>
         </div>
       </div>
