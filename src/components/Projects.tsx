@@ -8,7 +8,7 @@ const Projects = () => {
       title: "Mustaab E-Commerce Platform",
       description:
         "A fully functional e-commerce website built using the MERN stack in collaboration with a teammate. The platform features product management, authentication, and integrated services like Razorpay for payments and Shiprocket for order delivery tracking. Deployed with a responsive UI and real-time API communication for a seamless shopping experience.",
-      image: "/images/Mustaab.png",
+      image: `${import.meta.env.BASE_URL}images/Mustaab.png`,
       technologies: [
         "MongoDB",
         "Express.js",
@@ -26,7 +26,7 @@ const Projects = () => {
       title: "Secure User Management System",
       description:
         "A comprehensive user management system with role-based authentication, OTP verification, and MySQL database integration. Features include modular design, API integrations with Twilio and Google Maps, and both Web Forms and console interfaces.",
-      image: "/images/securelogin.png",
+      image: `${import.meta.env.BASE_URL}images/securelogin.png`,
       technologies: [
         "C#",
         "ASP.NET Web Forms",
@@ -43,7 +43,7 @@ const Projects = () => {
       title: "College Portal Management System",
       description:
         "Role-based college management application built with C# WinForms. Includes separate dashboards for Admin, Teacher, and Student roles with comprehensive CRUD operations for attendance, marks, and fee management.",
-      image: "/images/CollegePortal.jpg",
+      image: `${import.meta.env.BASE_URL}images/CollegePortal.jpg`,
       ImageUpscale,
       technologies: ["C#", "WinForms", "SQL Server", "ADO.NET", "GUI Design"],
       githubUrl:
@@ -54,7 +54,7 @@ const Projects = () => {
       title: "Smart Street Light Management",
       description:
         "IoT-based smart street lighting system using IR sensors for vehicle detection and LDR sensors for ambient light measurement. Automatically adjusts LED brightness based on vehicle presence and environmental conditions.",
-      image: "/images/smartstreet.jpg",
+      image: `${import.meta.env.BASE_URL}images/smartstreet.jpg`,
       technologies: [
         "Arduino",
         "IR Sensors",
@@ -69,7 +69,7 @@ const Projects = () => {
       title: "ChatGPT API Integration Suite",
       description:
         "Intelligent assistant application with multiple AI model integration and live search capabilities. Features include YouTube video summarization and data extraction from various file formats including PDFs, CSVs, and Excel files.",
-      image: "/images/chatgpt.jpg",
+      image: `${import.meta.env.BASE_URL}images/chatgpt.jpg`,
       ImageUpscale,
       technologies: [
         "Python",
