@@ -110,13 +110,13 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            {/* <Button
-              variant="outline"
-              size="lg"
-              className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
-            >
-              View My Work
-            </Button> */}
+          {/* <Button
+            variant="outline"
+            size="lg"
+            className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
+          >
+            View My Work
+          </Button> */}
 
             <a
               href={`${import.meta.env.BASE_URL}resume.pdf`}
