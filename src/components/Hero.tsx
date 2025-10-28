@@ -127,7 +127,7 @@ const Hero = () => {
                 size="lg"
                 className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
               >
-                Download CV
+                Download Resume
               </Button>
             </a>
           </div>
