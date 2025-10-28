@@ -120,7 +120,7 @@ const Hero = () => {
 
             <a
               href={`${import.meta.env.BASE_URL}resume.pdf`}
-              download="Bharath_Kammala_Resume.pdf"
+              download="Bharath.K_Resume.pdf"
             >
               <Button
                 variant="outline"
