@@ -1,74 +1,52 @@
-/* Modern Portfolio Design System */
+/* Modern Apple-Style Minimalist Design System */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 5s ease infinite;
-}
-
-
 
 @layer base {
   :root {
-    /* Dark theme color palette */
-    --background: 222 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Apple Light theme color palette */
+    /* Background: Soft off-white typical of Apple (e.g., #F5F5F7) */
+    --background: 240 10% 96%;
+    /* Foreground: Deep grey/black for text (e.g., #1D1D1F) */
+    --foreground: 220 5% 12%;
     
-    /* Brand colors */
-    --primary: 280 100% 70%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 280 100% 80%;
-    
-    /* Accent colors */
-    --accent: 198 100% 70%;
-    --accent-foreground: 210 40% 98%;
-    --accent-glow: 198 100% 80%;
+    /* Brand colors: Classic Deep Blue (e.g., #0071E3) */
+    --primary: 210 100% 45%;
+    --primary-foreground: 0 0% 100%;
     
     /* Surface colors */
-    --card: 222 84% 8%;
-    --card-foreground: 210 40% 98%;
-    --card-hover: 222 84% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 5% 12%;
     
-    --popover: 222 84% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 5% 12%;
     
-    --secondary: 222 84% 15%;
-    --secondary-foreground: 210 40% 98%;
+    /* Subtle secondary backgrounds */
+    --secondary: 240 5% 90%;
+    --secondary-foreground: 220 5% 12%;
     
-    --muted: 222 84% 20%;
-    --muted-foreground: 210 20% 65%;
+    /* Muted text and backgrounds */
+    --muted: 240 5% 90%;
+    --muted-foreground: 220 5% 40%;
     
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
     
-    --border: 222 84% 15%;
-    --input: 222 84% 15%;
-    --ring: 280 100% 70%;
+    --border: 240 5% 85%;
+    --input: 240 5% 90%;
+    --ring: 210 100% 45%;
     
-    --radius: 0.75rem;
+    --radius: 1rem;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(198 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(280 100% 70%) 0%, hsl(198 100% 70%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(222 84% 8%) 0%, hsl(222 84% 12%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(222 84% 6%) 0%, hsl(222 84% 8%) 100%);
-    
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(280 100% 70% / 0.2);
-    --shadow-card: 0 20px 40px hsl(0 0% 0% / 0.3);
-    --shadow-elegant: 0 10px 30px -10px hsl(280 100% 70% / 0.2);
+    /* Shadows - Soft, wide, very transparent drop shadows */
+    --shadow-card: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+    --shadow-elegant: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
     
     /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
@@ -79,7 +57,9 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   html {
@@ -88,51 +68,33 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary));
+    background: hsl(var(--muted-foreground) / 0.3);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary-glow));
+    background: hsl(var(--muted-foreground) / 0.6);
   }
 }
 
 @layer components {
-  /* Text gradient utilities */
-  .text-gradient {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
+  /* Text gradient utilities - Minimalist prefers solid colors, but we keep it subtle if used */
+  .text-gradient,
   .text-gradient-hero {
-    background: var(--gradient-hero);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* Glow effects */
-  .glow {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .glow-hover:hover {
-    box-shadow: var(--shadow-glow);
+    color: hsl(var(--foreground));
   }
 
   /* Card styles */
   .card-gradient {
-    background: var(--gradient-card);
+    background: var(--card);
   }
 
   .card-hover {
@@ -140,29 +102,34 @@
   }
 
   .card-hover:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-card);
   }
 
-  /* Animation utilities */
+  /* Light Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Replace animation utilities that were overly flashy */
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite;
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
-  }
-
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    50% { transform: translateY(-10px); }
   }
 
   .animate-slide-up {
@@ -172,7 +139,7 @@
   @keyframes slide-up {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -188,7 +155,6 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
-
   /* Typewriter effect */
   .typewriter {
     overflow: hidden;
@@ -206,17 +172,4 @@
     from, to { border-color: transparent; }
     50% { border-color: hsl(var(--primary)); }
   }
-
-  /* Fix for text gradients inside animated components like BlurText */
-.text-gradient,
-.text-gradient-hero {
-  display: inline-block;
-  background: var(--gradient-hero);
-  background-size: 200% 200%;
-  animation: gradient-shift 6s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-}
 }

@@ -1,125 +1,141 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Card, CardContent } from '../components/ui/card';
+import { motion } from 'framer-motion';
 
 const Skills = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
   const skillCategories = [
     {
       title: "Programming Languages",
       skills: [
-        { name: "C#", level: 85 },
-        { name: "Python", level: 75 },
-        { name: "JavaScript", level: 70 },
-        { name: "SQL", level: 80 }
+        "C#",
+        "Python",
+        "JavaScript",
+        "SQL"
       ]
     },
     {
       title: ".NET Technologies",
       skills: [
-        { name: ".NET Framework", level: 85 },
-        { name: "ASP.NET", level: 80 },
-        { name: "WinForms", level: 85 },
-        { name: "ADO.NET", level: 80 },
-        { name: "Web Forms", level: 75 }
+        ".NET Framework",
+        "ASP.NET",
+        "WinForms",
+        "ADO.NET",
+        "Web Forms"
       ]
     },
     {
       title: "Databases & Tools",
       skills: [
-        { name: "MySQL", level: 85 },
-        { name: "SQL Server", level: 80 },
-        { name: "Visual Studio", level: 90 },
-        { name: "VS Code", level: 85 },
-        { name: "Git/GitHub", level: 80 }
+        "MySQL",
+        "SQL Server",
+        "Visual Studio",
+        "VS Code",
+        "Git/GitHub",
+        "CI/CD Pipelines"
       ]
     }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.1 } 
     }
+  };
 
-    return () => observer.disconnect();
-  }, []);
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.9, y: 15 },
+    visible: { 
+      opacity: 1, scale: 1, y: 0, 
+      transition: { duration: 0.2 } 
+    }
+  };
 
   return (
-    <section id="skills" ref={sectionRef} className="py-16 lg:py-18 px-4 sm:px-6 lg:px-8 bg-card/20">
+    <section id="skills" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gradient">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.3 }}
+        >
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-foreground drop-shadow-sm">
             Skills & Expertise
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Technologies and tools I use to bring ideas to life
+          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
+            A focused toolkit I use to build reliable applications and polished user experiences
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {skillCategories.map((category, categoryIndex) => (
-            <Card key={categoryIndex} className="card-gradient border-border card-hover">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-6 text-center">
-                  {category.title}
-                </h3>
-                <div className="space-y-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-foreground">
-                          {skill.name}
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-muted rounded-full h-2">
-                        <div
-                          className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-1000 ease-out"
-                          style={{
-                            width: isVisible ? `${skill.level}%` : '0%',
-                            transitionDelay: `${(categoryIndex * 200) + (skillIndex * 100)}ms`
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div key={categoryIndex} variants={itemVariants}>
+              <Card className="glass-card h-full overflow-hidden border-border/60 transition-all duration-300 group hover:-translate-y-2 hover:border-primary/50">
+                <CardContent className="p-6 sm:p-7">
+                  <div className="mb-6 flex items-center justify-between">
+                    <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                      Core Stack
+                    </span>
+                    <span className="h-px flex-1 ml-4 bg-gradient-to-r from-primary/40 to-transparent"></span>
+                  </div>
+                  <h3 className="mb-5 text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {category.title}
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {category.skills.map((skill, skillIndex) => (
+                      <motion.span
+                        key={skillIndex}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.25, delay: skillIndex * 0.05 }}
+                        className="rounded-full border border-border/60 bg-background/60 px-4 py-2 text-sm font-medium text-foreground/90 shadow-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Additional Skills Tags */}
-        <div className="mt-16 text-center">
-          <h3 className="text-xl font-semibold text-foreground mb-6">
+        <motion.div 
+          className="mt-20 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <h3 className="text-lg font-semibold text-foreground mb-6 inline-block drop-shadow-sm">
             Other Technologies
           </h3>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              'API Integration', 'OOP Concepts', 'DBMS', 'HTML/CSS', 'IoT', 
-              'IntelliJ IDEA', 'React', 'Node.js', 'Express.js', 'MongoDB',
+              'API Integration', 'OOP Concepts', 'DBMS', 'HTML/CSS', 'IoT',
+              'IntelliJ IDEA', 'React', 'Node.js', 'Express.js', 'MongoDB', 'CI/CD Pipelines'
             ].map((tech, index) => (
-              <span
+              <motion.span
+                whileHover={{ scale: 1.06, y: -2 }}
                 key={index}
-                className="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-primary transition-colors cursor-default"
+                className="px-5 py-2 glass border-border/50 rounded-full text-sm font-medium text-foreground/90 transition-all duration-300 cursor-default hover:border-primary/50 hover:text-primary"
               >
                 {tech}
-              </span>
+              </motion.span>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

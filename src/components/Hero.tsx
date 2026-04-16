@@ -2,27 +2,14 @@ import { useState, useEffect } from "react";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "../components/ui/button";
 import BlurText from "../BlurText";
+import DecryptedText from "./DecryptedText";
+import Antigravity from "./Antigravity";
+import { motion } from "framer-motion";
 import "../index.css";
 
 const Hero = () => {
   const [role, setRole] = useState("Software Developer");
-  const [displayText, setDisplayText] = useState("");
-
-  useEffect(() => {
-    const fullText = role;
-    let i = 0;
-    const typingInterval = setInterval(() => {
-      if (i < fullText.length) {
-        setDisplayText(fullText.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 100);
-
-    return () => clearInterval(typingInterval);
-  }, [role]);
-
+  
   const scrollToAbout = () => {
     const aboutSection = document.querySelector("#about");
     if (aboutSection) {
@@ -30,94 +17,76 @@ const Hero = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0, scale: 0.95 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[calc(100vh-4rem)] mt-16 flex items-center justify-center overflow-hidden scroll-mt-16"
     >
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url("images/hero-bg.png")` }}
-      >
-        <div className="absolute inset-0 bg-background/70"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full animate-float blur-xl"></div>
-      <div
-        className="absolute top-40 right-20 w-32 h-32 bg-accent/20 rounded-full animate-float blur-xl"
-        style={{ animationDelay: "2s" }}
-      ></div>
-      <div
-        className="absolute bottom-20 left-20 w-24 h-24 bg-primary/30 rounded-full animate-float blur-xl"
-        style={{ animationDelay: "4s" }}
-      ></div>
+      <div className="absolute inset-0 bg-background/20 backdrop-blur-[2px] z-0" />
+      <Antigravity color="#0071E3" count={100} />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8">
-        <div className="animate-slide-up">
-          <h2 className="text-lg sm:text-xl text-muted-foreground mb-4 font-light">
+      <motion.div 
+        className="relative z-10 text-center px-4 sm:px-6 lg:px-8 w-full max-w-4xl"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div className="glass-card p-10 md:p-14 rounded-3xl mx-auto shadow-2xl">
+          <motion.h2 variants={itemVariants} className="text-lg sm:text-xl text-primary font-medium tracking-wide mb-4 uppercase">
             Hello, I'm
-          </h2>
+          </motion.h2>
 
-          {/* Name with BlurText */}
-          <BlurText
-            text="Bharath Kammala"
-            delay={100}
-            animateBy="letters"
-            direction="top"
-            gradient={true}
-            className="text-5xl sm:text-6xl lg:text-7xl ml-6 font-bold inline-block"
-            onAnimationComplete={() =>
-              console.log("✨ BlurText animation complete!")
-            }
-            stepDuration={0.5}
-          />
+          <motion.div variants={itemVariants}>
+            <div className="text-4xl sm:text-5xl lg:text-6xl font-bold inline-block tracking-tight mb-2 text-foreground">
+              <DecryptedText
+                text="Bharath Kammala"
+                speed={70}
+                animateOn="view"
+                revealDirection="center"
+              />
+            </div>
+          </motion.div>
 
-          {/* Role positioned below name and above paragraph */}
-          {/* Role with simple BlurText animation */}
-          <div className="my-6 text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground text-center flex justify-center">
+          <motion.div variants={itemVariants} className="my-6 text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground/80 text-center flex justify-center">
             <BlurText
               text={role}
-              delay={100}
-              animateBy="letters"
-              direction="bottom"
-              gradient={false}
-              className="inline"
-              stepDuration={0.4}
-              onAnimationComplete={() =>
-                console.log("Role blur animation complete!")
-              }
-            />
-          </div>
-
-          {/* Description paragraph */}
-          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed ">
-            <BlurText
-              text="Passionate .NET developer specializing in C#, ASP.NET, and modern web technologies with expertise in API integration and database management"
-              delay={100}
+              delay={50}
               animateBy="words"
               direction="bottom"
               gradient={false}
               className="inline"
-              stepDuration={0.4}
-              onAnimationComplete={() =>
-                console.log("Description blur animation complete!")
-              }
+              stepDuration={0.2}
             />
-          </p>
+          </motion.div>
+
+          <motion.p variants={itemVariants} className="text-base sm:text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+            Passionate .NET developer specializing in C#, ASP.NET, and modern web technologies with expertise in API integration and database management.
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            {/* <Button
-            variant="outline"
-            size="lg"
-            className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
-          >
-            View My Work
-          </Button> */}
-
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
             <a
               href={`${import.meta.env.BASE_URL}Bharath_Resume_.pdf`}
               download="Bharath_Resume_.pdf"
@@ -125,61 +94,53 @@ const Hero = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="bg-transparent border-fuchsia-400 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/80 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]"
+                className="glass border-primary/20 text-foreground font-medium px-8 py-6 text-lg transition-all duration-300 hover:bg-primary/5 hover:scale-105 hover:shadow-lg"
               >
                 Download Resume
               </Button>
             </a>
-          </div>
+          </motion.div>
 
           {/* Social Links */}
-          <div className="flex justify-center space-x-6 mb-12">
+          <motion.div variants={itemVariants} className="flex justify-center space-x-6">
             <Button
               variant="ghost"
               size="sm"
-              className="text-muted-foreground hover:text-primary glow-hover p-3"
-              onClick={() =>
-                window.open("https://github.com/Bharathkammala", "_blank")
-              }
+              className="glass rounded-full text-muted-foreground hover:text-primary hover:bg-foreground/5 hover:scale-110 transition-all p-3 h-12 w-12"
+              onClick={() => window.open("https://github.com/Bharathkammala", "_blank")}
             >
               <Github size={24} />
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="text-muted-foreground hover:text-primary glow-hover p-3"
-              onClick={() =>
-                window.open(
-                  "https://www.linkedin.com/in/kammala-bharath",
-                  "_blank"
-                )
-              }
+              className="glass rounded-full text-muted-foreground hover:text-primary hover:bg-foreground/5 hover:scale-110 transition-all p-3 h-12 w-12"
+              onClick={() => window.open("https://www.linkedin.com/in/kammala-bharath", "_blank")}
             >
               <Linkedin size={24} />
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="text-muted-foreground hover:text-primary glow-hover p-3"
-              onClick={() =>
-                window.open(
-                  "https://mail.google.com/mail/?view=cm&fs=1&to=kammalabharath96@gmail.com"
-                )
-              }
+              className="glass rounded-full text-muted-foreground hover:text-primary hover:bg-foreground/5 hover:scale-110 transition-all p-3 h-12 w-12"
+              onClick={() => window.open("https://mail.google.com/mail/?view=cm&fs=1&to=kammalabharath96@gmail.com")}
             >
               <Mail size={24} />
             </Button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Scroll Indicator */}
-        <button
+        <motion.button
+          variants={itemVariants}
           onClick={scrollToAbout}
-          className="absolute bottom-0.9 left-1/2 transform -translate-x-1/2 animate-bounce"
+          className="absolute -bottom-20 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
-          <ArrowDown className="text-primary" size={32} />
-        </button>
-      </div>
+          <ArrowDown className="text-primary/70 hover:text-primary transition-colors" size={32} />
+        </motion.button>
+      </motion.div>
     </section>
   );
 };

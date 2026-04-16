@@ -1,21 +1,7 @@
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Briefcase, Globe } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Textarea } from '../components/ui/textarea';
-import { useToast } from '../hooks/use-toast';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
   const contactInfo = [
     {
       icon: Mail,
@@ -37,77 +23,57 @@ const Contact = () => {
     }
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    setIsSubmitting(false);
-  };
+  const socialLinks = [
+    {
+      icon: Github,
+      title: "GitHub",
+      value: "github.com/Bharathkammala",
+      href: "https://github.com/Bharathkammala"
+    },
+    {
+      icon: Linkedin,
+      title: "LinkedIn",
+      value: "linkedin.com/in/kammala-bharath",
+      href: "https://www.linkedin.com/in/kammala-bharath"
+    }
+  ];
 
   return (
-    <section id="contact" className="py-20 lg:py-16 px-4 sm:px-6 lg:px-8 bg-card/20">
+    <section id="contact" className="py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative z-10 scroll-mt-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gradient">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-foreground drop-shadow-sm">
             Get In Touch
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you!
+          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
+            Whether you have a question, a project idea, or just want to connect, my inbox is always open.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">
-                Let's Start a Conversation
-              </h3>
-              <p className="text-muted-foreground leading-relaxed mb-8">
-                I'm always interested in discussing new opportunities, collaborating on exciting projects, 
-                or connecting with fellow developers. Whether you have a project idea, need technical guidance, 
-                or simply want to network, feel free to reach out!
-              </p>
-            </div>
-
-            {/* Contact Info Cards */}
-            <div className="space-y-4">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Contact Information (Left Column) */}
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-foreground px-2">
+              Primary Contact
+            </h3>
+            
+            <div className="grid gap-4">
               {contactInfo.map((info, index) => (
-                <Card key={index} className="card-gradient border-border card-hover">
+                <Card key={index} className="glass-card border-border/50 hover:-translate-y-1 hover:border-primary/50 transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4">
-                      <div className="p-3 bg-primary/10 rounded-lg">
+                      <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
                         <info.icon className="text-primary" size={24} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-foreground">
+                        <h4 className="text-sm font-semibold text-foreground/80 uppercase tracking-widest mb-1">
                           {info.title}
                         </h4>
                         <a
                           href={info.href}
-                          className="text-muted-foreground hover:text-primary transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-base font-medium text-foreground hover:text-primary transition-colors block"
                         >
                           {info.value}
                         </a>
@@ -117,106 +83,65 @@ const Contact = () => {
                 </Card>
               ))}
             </div>
+          </div>
 
-            {/* Response Time */}
-            <Card className="card-gradient border-border">
-              <CardContent className="p-6">
-                <h4 className="font-semibold text-foreground mb-2">
-                  Quick Response
-                </h4>
-                <p className="text-muted-foreground text-sm">
-                  I typically respond to messages within 24 hours during business days.
-                </p>
+          {/* Socials and Status (Right Column) */}
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-foreground px-2">
+              Connect & Availability
+            </h3>
+
+            {/* Social Links */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {socialLinks.map((social, index) => (
+                <Card key={index} className="glass-card border-border/50 hover:-translate-y-1 hover:border-primary/50 transition-all duration-300">
+                  <CardContent className="p-6 flex flex-col items-center text-center justify-center space-y-3">
+                    <div className="p-3 bg-primary/10 rounded-full">
+                      <social.icon className="text-primary" size={24} />
+                    </div>
+                    <div>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-base font-medium text-foreground hover:text-primary transition-colors block"
+                      >
+                        {social.title}
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Current Status Card */}
+            <Card className="glass-card border-border/50">
+              <CardContent className="p-8">
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <Briefcase className="text-primary" size={24} />
+                      <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 border-2 border-background rounded-full animate-pulse"></span>
+                    </div>
+                    <h4 className="text-lg font-bold text-foreground">
+                      Current Status
+                    </h4>
+                  </div>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    I am actively seeking full-time opportunities in software development. 
+                    I'm highly interested in roles involving .NET core architecture, full-stack web applications, 
+                    and impactful API design. Let's build something great together!
+                  </p>
+                  <div className="pt-2">
+                     <div className="inline-flex items-center space-x-2 text-sm font-medium text-foreground/80">
+                        <Globe size={16} className="text-primary" />
+                        <span>Available for remote or hybrid work</span>
+                     </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
-
-          {/* Contact Form */}
-          <Card className="card-gradient border-border">
-            <CardContent className="p-6 lg:p-8">
-              <h3 className="text-xl font-bold text-foreground mb-6">
-                Send Me a Message
-              </h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                      Name
-                    </label>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="bg-background border-border text-foreground"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                      Email
-                    </label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="bg-background border-border text-foreground"
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                    Subject
-                  </label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    className="bg-background border-border text-foreground"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                    Message
-                  </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className="bg-background border-border text-foreground resize-none"
-                    required
-                  />
-                </div>
-                
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-hover"
-                >
-                  {isSubmitting ? (
-                    "Sending..."
-                  ) : (
-                    <>
-                      <Send size={16} className="mr-2" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>
